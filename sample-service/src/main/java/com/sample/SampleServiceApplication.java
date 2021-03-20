@@ -24,10 +24,10 @@ import com.sample.utils.UserContextInterceptor;
 @EnableDiscoveryClient
 @EnableFeignClients
 @EnableEurekaClient
-public class LicenseServiceApplication {
+public class SampleServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LicenseServiceApplication.class, args);
+		SpringApplication.run(SampleServiceApplication.class, args);
 	}
 
 	@Bean
@@ -44,21 +44,5 @@ public class LicenseServiceApplication {
 		return messageSource;
 	}
 
-	@SuppressWarnings("unchecked")
-	@LoadBalanced
-	@Bean
-	public RestTemplate getRestTemplate(){
-		RestTemplate template = new RestTemplate();
-        List interceptors = template.getInterceptors();
-        if (interceptors==null){
-            template.setInterceptors(Collections.singletonList(new UserContextInterceptor()));
-        }
-        else{
-            interceptors.add(new UserContextInterceptor());
-            template.setInterceptors(interceptors);
-        }
-
-        return template;
-	}
 
 }
